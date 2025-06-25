@@ -17,7 +17,7 @@ if [[ -z "$NODE_ID" ]]; then
   exit 1
 fi
 
-IMAGE_NAME="nexus-prover-$NODE_ID"
+IMAGE_NAME="nexusprover$(echo "$NODE_ID" | tr '[:upper:]' '[:lower:]')"
 
 # Крок 1: Підготовка директорії
 mkdir -p ~/nexus-prover && cd ~/nexus-prover
@@ -101,3 +101,4 @@ echo "🟢 Запуск:     sudo systemctl start $SERVICE_NAME"
 echo "🔴 Зупинка:    sudo systemctl stop $SERVICE_NAME"
 echo "♻️ Перезапуск: sudo systemctl restart $SERVICE_NAME"
 echo "🚫 Вимкнути автозапуск: sudo systemctl disable $SERVICE_NAME"
+
