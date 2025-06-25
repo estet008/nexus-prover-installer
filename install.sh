@@ -18,10 +18,10 @@ fi
 if [[ -z "$NODE_ID" ]]; then
   read -p "🔢 Введіть ваш NODE ID: " NODE_ID
 fi
-NODE_ID=$(echo "$NODE_ID" | tr -d '[:space:]' | sed 's/[^a-zA-Z0-9_-]//g')
+NODE_ID_CLEAN=$(echo "$NODE_ID" | tr -d '[:space:]' | sed 's/[^a-zA-Z0-9_-]//g')
 
 # Перевірка на порожній ввід
-if [[ -z "$NODE_ID" ]]; then
+if [[ -z "$NODE_ID_CLEAN" ]]; then
   echo "❌ Помилка: Node ID не може бути порожнім або містити недійсні символи"
   exit 1
 fi
@@ -90,8 +90,8 @@ sudo docker rm -f nexus-instance &>/dev/null || true
 sudo docker create \
   --name nexus-instance \
   --restart unless-stopped \
-  -e NODE_ID="$NODE_ID" \
-  nexusprover
+  -e NODE_ID="$NODE_ID_CLEAN" \
+  $IMAGE_NAME
 
 # Крок 7: Запуск контейнера через systemd
 sudo systemctl start $SERVICE_NAME
