@@ -45,8 +45,11 @@ RUN useradd -ms /bin/bash prover
 
 USER prover
 WORKDIR /home/prover
+ENV HOME=/home/prover
 
-RUN curl -L https://cli.nexus.xyz/ | HOME=/home/prover sh
+RUN curl -sSf https://cli.nexus.xyz/ -o install.sh \
+ && chmod +x install.sh \
+ && NONINTERACTIVE=1 ./install.sh
 
 COPY --chown=prover:prover entrypoint.sh /home/prover/entrypoint.sh
 RUN chmod +x /home/prover/entrypoint.sh
