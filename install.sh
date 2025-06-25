@@ -80,6 +80,12 @@ EOF
 # Крок 4: Побудова Docker-образу
 sudo docker build -t $IMAGE_NAME .
 
+# Перевірка наявності виконуваного файлу в образі
+if ! sudo docker run --rm -e NODE_ID=$NODE_ID_CLEAN $IMAGE_NAME /home/prover/.nexus/bin/nexus-network --version &>/dev/null; then
+  echo "❌ Помилка: Файл nexus-network не знайдено в образі або не є виконуваним."
+  exit 1
+fi
+
 # Крок 5: Створення системного сервісу для автозапуску після перезавантаження
 SERVICE_NAME="nexus-docker-prover"
 SERVICE_FILE="/etc/systemd/system/$SERVICE_NAME.service"
