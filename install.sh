@@ -69,13 +69,16 @@ if [[ -z "\$NODE_ID_CLEAN" ]]; then
   exit 1
 fi
 
-if [[ ! -x /home/prover/.nexus/bin/nexus-network ]]; then
-  echo "⚠️ nexus-network не знайдено або не є виконуваним. Схоже, Testnet III ще не активний."
-  sleep 10
-  exit 0
-fi
+for i in {1..10}; do
+  if [[ -x /home/prover/.nexus/bin/nexus-network ]]; then
+    exec /home/prover/.nexus/bin/nexus-network start --node-id "\$NODE_ID_CLEAN"
+  fi
+  echo "🔄 Очікування появи nexus-network... Спроба \$i"
+  sleep 5
+done
 
-exec /home/prover/.nexus/bin/nexus-network start --node-id "\$NODE_ID_CLEAN"
+echo "⚠️ nexus-network так і не з'явився. Можливо, Testnet III ще не запущено."
+exit 0
 EOF
 
 # Крок 4: Побудова Docker-образу
