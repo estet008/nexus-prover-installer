@@ -68,6 +68,12 @@ if [[ -z "\$NODE_ID_CLEAN" ]]; then
   exit 1
 fi
 
+if [[ ! -x /home/prover/.nexus/bin/nexus-network ]]; then
+  echo "⚠️ Файл nexus-network не знайдено або не є виконуваним. Вміст каталогу:"
+  ls -l /home/prover/.nexus/bin || echo "❌ Каталог не існує"
+  exit 1
+fi
+
 exec /home/prover/.nexus/bin/nexus-network start --node-id "\$NODE_ID_CLEAN"
 EOF
 
