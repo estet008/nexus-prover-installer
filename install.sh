@@ -86,14 +86,18 @@ sudo systemctl daemon-reexec
 sudo systemctl daemon-reload
 sudo systemctl enable $SERVICE_NAME
 
-# Крок 6: Запуск контейнера
+# Крок 6: Створення контейнера
 sudo docker rm -f nexus-instance &>/dev/null || true
-sudo docker run -d --restart unless-stopped \
+sudo docker create \
   --name nexus-instance \
+  --restart unless-stopped \
   -e NODE_ID="$NODE_ID" \
   nexusprover
 
-# Крок 7: Готово
+# Крок 7: Запуск контейнера через systemd
+sudo systemctl start $SERVICE_NAME
+
+# Крок 8: Готово
 echo "✅ Nexus Prover встановлено і запущено в Docker-контейнері!"
 echo "🔁 Перевірити логи: docker logs -f nexus-instance"
 echo "🛑 Зупинити: docker stop nexus-instance"
@@ -109,4 +113,3 @@ echo "🟢 Запуск:     sudo systemctl start $SERVICE_NAME"
 echo "🔴 Зупинка:    sudo systemctl stop $SERVICE_NAME"
 echo "♻️ Перезапуск: sudo systemctl restart $SERVICE_NAME"
 echo "🚫 Вимкнути автозапуск: sudo systemctl disable $SERVICE_NAME"
-
