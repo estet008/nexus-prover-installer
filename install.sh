@@ -56,9 +56,7 @@ EOF
 cat <<EOF > entrypoint.sh
 #!/bin/bash
 
-NODE_ID=\${NODE_ID:-"$NODE_ID"}
-
-/home/prover/.nexus/bin/nexus-network start --node-id \$NODE_ID
+/home/prover/.nexus/bin/nexus-network start --node-id "$NODE_ID"
 EOF
 
 # Крок 4: Побудова Docker-образу
