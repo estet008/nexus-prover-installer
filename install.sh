@@ -41,7 +41,6 @@ RUN apt update && apt install -y \
     tzdata
 
 RUN useradd -ms /bin/bash prover
-USER prover
 WORKDIR /home/prover
 
 RUN mkdir -p /home/prover/.nexus/bin
@@ -50,6 +49,7 @@ RUN curl -L https://cli.nexus.xyz/ | sh
 COPY entrypoint.sh /home/prover/entrypoint.sh
 RUN chmod +x /home/prover/entrypoint.sh
 
+USER prover
 ENTRYPOINT ["/home/prover/entrypoint.sh"]
 EOF
 
