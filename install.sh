@@ -56,7 +56,7 @@ EOF
 cat <<EOF > entrypoint.sh
 #!/bin/bash
 
-/home/prover/.nexus/bin/nexus-network start --node-id "\$NODE_ID"
+/home/prover/.nexus/bin/nexus-network start --node-id "\${NODE_ID}"
 EOF
 
 # Крок 4: Побудова Docker-образу
@@ -90,7 +90,7 @@ sudo docker rm -f nexus-instance &>/dev/null || true
 sudo docker create \
   --name nexus-instance \
   --restart unless-stopped \
-  -e NODE_ID="$NODE_ID_CLEAN" \
+  -e NODE_ID=$NODE_ID_CLEAN \
   $IMAGE_NAME
 
 # Крок 7: Запуск контейнера через systemd
@@ -112,3 +112,4 @@ echo "🟢 Запуск:     sudo systemctl start $SERVICE_NAME"
 echo "🔴 Зупинка:    sudo systemctl stop $SERVICE_NAME"
 echo "♻️ Перезапуск: sudo systemctl restart $SERVICE_NAME"
 echo "🚫 Вимкнути автозапуск: sudo systemctl disable $SERVICE_NAME"
+
