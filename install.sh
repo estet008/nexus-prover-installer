@@ -16,7 +16,8 @@ fi
 
 # Запит Node ID у користувача, якщо не передано як змінна середовища
 if [[ -z "$NODE_ID" ]]; then
-  read -p "🔢 Введіть ваш NODE ID: " NODE_ID
+  echo -n "🔢 Введіть ваш NODE ID: "
+  read NODE_ID
 fi
 NODE_ID_CLEAN=$(echo "$NODE_ID" | tr -d '[:space:]' | sed 's/[^a-zA-Z0-9_-]//g')
 
@@ -41,7 +42,6 @@ RUN apt update && apt install -y \
     tzdata
 
 RUN useradd -ms /bin/bash prover
-USER prover
 WORKDIR /home/prover
 
 RUN curl -L https://cli.nexus.xyz/ | sh
@@ -49,6 +49,7 @@ RUN curl -L https://cli.nexus.xyz/ | sh
 COPY --chown=prover:prover entrypoint.sh /home/prover/entrypoint.sh
 RUN chmod +x /home/prover/entrypoint.sh
 
+USER prover
 ENTRYPOINT ["/home/prover/entrypoint.sh"]
 EOF
 
@@ -119,4 +120,3 @@ echo "🟢 Запуск:     sudo systemctl start $SERVICE_NAME"
 echo "🔴 Зупинка:    sudo systemctl stop $SERVICE_NAME"
 echo "♻️ Перезапуск: sudo systemctl restart $SERVICE_NAME"
 echo "🚫 Вимкнути автозапуск: sudo systemctl disable $SERVICE_NAME"
-
