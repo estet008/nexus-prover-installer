@@ -46,11 +46,10 @@ WORKDIR /home/prover
 RUN mkdir -p /home/prover/.nexus/bin
 RUN curl -L https://cli.nexus.xyz/ | sh
 
-COPY entrypoint.sh /home/prover/entrypoint.sh
-USER root
+COPY --chown=prover:prover entrypoint.sh /home/prover/entrypoint.sh
 RUN chmod +x /home/prover/entrypoint.sh
-USER prover
 
+USER prover
 ENTRYPOINT ["/home/prover/entrypoint.sh"]
 EOF
 
