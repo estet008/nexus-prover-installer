@@ -57,11 +57,11 @@ EOF
 cat <<EOF > entrypoint.sh
 #!/bin/bash
 
-/home/prover/.nexus/bin/nexus-network start --node-id "$NODE_ID"
+/home/prover/.nexus/bin/nexus-network start --node-id "\$NODE_ID"
 EOF
 
 # Крок 4: Побудова Docker-образу
-sudo docker build -t "$IMAGE_NAME" .
+sudo docker build -t $IMAGE_NAME .
 
 # Крок 5: Створення системного сервісу для автозапуску після перезавантаження
 SERVICE_NAME="nexus-docker-prover"
@@ -91,7 +91,7 @@ sudo docker rm -f nexus-instance &>/dev/null || true
 sudo docker run -d --restart unless-stopped \
   --name nexus-instance \
   -e NODE_ID="$NODE_ID" \
-  "$IMAGE_NAME"
+  nexusprover
 
 # Крок 7: Готово
 echo "✅ Nexus Prover встановлено і запущено в Docker-контейнері!"
@@ -109,3 +109,4 @@ echo "🟢 Запуск:     sudo systemctl start $SERVICE_NAME"
 echo "🔴 Зупинка:    sudo systemctl stop $SERVICE_NAME"
 echo "♻️ Перезапуск: sudo systemctl restart $SERVICE_NAME"
 echo "🚫 Вимкнути автозапуск: sudo systemctl disable $SERVICE_NAME"
+
