@@ -9,7 +9,7 @@ set -e
 
 # Запит Node ID у користувача
 read -p "🔢 Введіть ваш NODE ID: " NODE_ID
-IMAGE_NAME="nexus-prover"
+IMAGE_NAME="nexus-prover-$NODE_ID"
 
 # Крок 1: Підготовка директорії
 mkdir -p ~/nexus-prover && cd ~/nexus-prover
