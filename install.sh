@@ -47,9 +47,10 @@ RUN mkdir -p /home/prover/.nexus/bin
 RUN curl -L https://cli.nexus.xyz/ | sh
 
 COPY entrypoint.sh /home/prover/entrypoint.sh
+USER root
 RUN chmod +x /home/prover/entrypoint.sh
-
 USER prover
+
 ENTRYPOINT ["/home/prover/entrypoint.sh"]
 EOF
 
