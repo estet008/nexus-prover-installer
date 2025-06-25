@@ -7,6 +7,13 @@ set -e
 # Підтримка через Docker з glibc >=2.39
 # ---------------------------
 
+# 🔍 Перевірка наявності Docker
+if ! command -v docker &> /dev/null; then
+  echo "❌ Docker не встановлено. Будь ласка, встановіть Docker перед запуском цього скрипта."
+  echo "Інструкція: https://docs.docker.com/engine/install/"
+  exit 1
+fi
+
 # Запит Node ID у користувача
 read -p "🔢 Введіть ваш NODE ID: " NODE_ID
 NODE_ID=$(echo "$NODE_ID" | tr -d '[:space:]' | sed 's/[^a-zA-Z0-9_-]//g')
@@ -17,7 +24,8 @@ if [[ -z "$NODE_ID" ]]; then
   exit 1
 fi
 
-IMAGE_NAME="nexusprover$(echo "$NODE_ID" | tr '[:upper:]' '[:lower:]')"
+LOWER_ID=$(echo "$NODE_ID" | tr '[:upper:]' '[:lower:]')
+IMAGE_NAME="nexusprover${LOWER_ID}"
 
 # Крок 1: Підготовка директорії
 mkdir -p ~/nexus-prover && cd ~/nexus-prover
@@ -101,4 +109,3 @@ echo "🟢 Запуск:     sudo systemctl start $SERVICE_NAME"
 echo "🔴 Зупинка:    sudo systemctl stop $SERVICE_NAME"
 echo "♻️ Перезапуск: sudo systemctl restart $SERVICE_NAME"
 echo "🚫 Вимкнути автозапуск: sudo systemctl disable $SERVICE_NAME"
-
