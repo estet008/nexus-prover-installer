@@ -24,7 +24,7 @@
 ## ⬇️ Завантаження скрипта з GitHub
 
 ```bash
-git clone https://github.com/<твій-логін>/nexus-prover-installer.git
+git clone https://github.com/estet008/nexus-prover-installer.git
 cd nexus-prover-installer
 ```
 
