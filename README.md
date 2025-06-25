@@ -19,10 +19,8 @@
 ## 🚀 Швидкий запуск
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/<your-username>/nexus-prover-installer/main/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/estet008/nexus-prover-installer/main/install.sh | bash
 ```
-
-📌 Замініть `<your-username>` на свій GitHub логін.
 
 ---
 
