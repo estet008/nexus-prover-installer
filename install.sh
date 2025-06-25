@@ -56,7 +56,14 @@ EOF
 cat <<EOF > entrypoint.sh
 #!/bin/bash
 
-exec /home/prover/.nexus/bin/nexus-network start --node-id "$NODE_ID_CLEAN"
+NODE_ID_CLEAN=\$(echo "\$NODE_ID" | tr -d '[:space:]' | sed 's/[^a-zA-Z0-9_-]//g')
+
+if [[ -z "\$NODE_ID_CLEAN" ]]; then
+  echo "❌ NODE_ID не передано у середовищі контейнера"
+  exit 1
+fi
+
+exec /home/prover/.nexus/bin/nexus-network start --node-id "\$NODE_ID_CLEAN"
 EOF
 
 # Крок 4: Побудова Docker-образу
@@ -112,3 +119,4 @@ echo "🟢 Запуск:     sudo systemctl start $SERVICE_NAME"
 echo "🔴 Зупинка:    sudo systemctl stop $SERVICE_NAME"
 echo "♻️ Перезапуск: sudo systemctl restart $SERVICE_NAME"
 echo "🚫 Вимкнути автозапуск: sudo systemctl disable $SERVICE_NAME"
+
