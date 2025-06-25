@@ -71,7 +71,9 @@ fi
 
 for i in {1..10}; do
   if [[ -x /home/prover/.nexus/bin/nexus-network ]]; then
-    exec /home/prover/.nexus/bin/nexus-network start --node-id "\$NODE_ID_CLEAN"
+    echo "✅ Знайдено nexus-network. Запуск..."
+    /home/prover/.nexus/bin/nexus-network start --node-id "\$NODE_ID_CLEAN"
+    exit \$?
   fi
   echo "🔄 Очікування появи nexus-network... Спроба \$i"
   sleep 5
