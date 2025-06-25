@@ -26,8 +26,7 @@ if [[ -z "$NODE_ID" ]]; then
   exit 1
 fi
 
-LOWER_ID=$(echo "$NODE_ID" | tr '[:upper:]' '[:lower:]')
-IMAGE_NAME="nexusprover${LOWER_ID}"
+IMAGE_NAME="nexusprover"
 
 # Крок 1: Підготовка директорії
 mkdir -p ~/nexus-prover && cd ~/nexus-prover
@@ -58,7 +57,7 @@ EOF
 cat <<EOF > entrypoint.sh
 #!/bin/bash
 
-/home/prover/.nexus/bin/nexus-network start --node-id "$NODE_ID"
+/home/prover/.nexus/bin/nexus-network start --node-id "\$NODE_ID"
 EOF
 
 # Крок 4: Побудова Docker-образу
