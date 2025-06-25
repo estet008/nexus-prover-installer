@@ -1,0 +1,21 @@
+# Ігнорувати всі лог-файли та тимчасові об'єкти
+*.log
+*.tmp
+
+# Docker збірки
+*.tar
+*.img
+
+# Linux специфічні файли
+*~
+.DS_Store
+Thumbs.db
+
+# Службові директорії
+node_modules/
+build/
+dist/
+
+# Nexus специфічне (якщо створюється)
+.nexus/
+credentials.json
