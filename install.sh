@@ -49,7 +49,8 @@ ENV HOME=/home/prover
 
 RUN curl -sSf https://cli.nexus.xyz/ -o install.sh \
  && chmod +x install.sh \
- && NONINTERACTIVE=1 ./install.sh
+ && NONINTERACTIVE=1 ./install.sh \
+ && find /home/prover -name nexus-network -type f -exec echo "✅ Знайдено nexus-network: {}" \;
 
 COPY --chown=prover:prover entrypoint.sh /home/prover/entrypoint.sh
 RUN chmod +x /home/prover/entrypoint.sh
