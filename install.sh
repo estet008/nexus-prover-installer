@@ -71,6 +71,7 @@ fi
 
 if [[ ! -x /home/prover/.nexus/bin/nexus-network ]]; then
   echo "⚠️ nexus-network не знайдено або не є виконуваним. Схоже, Testnet III ще не активний."
+  sleep 10
   exit 0
 fi
 
